@@ -2,81 +2,68 @@
 
 const fs = require("fs");
 const inquirer = require("inquirer");
-const util = require("util");
 const generateMarkdown = require("./utils/generateMarkdown");
-const generatePage = require('./readme.js');
-// const profileDataArgs = process.argv.slice(2);
 
-// // const [name, github] = profileDataArgs;
-// // // console.log(name, github);
-
-// // const pageHTML = generatePage(name, github);
-// // TODO: Create an array of questions for user input
+let answers = {};
 const questions = [
     {
         type: 'input',
-        name: 'project-title',
+        name: 'title',
         message: 'What is the name of your project?'
     },
     {
         type: 'input',
-        name: 'Description',
+        name: 'description',
         message: 'What is the description of your project?',
     },
     {
         type:'input',
-        name: 'Installation',
+        name: 'installation',
         message: 'What are the installion instructions for your project?'
     },
     {
         type: 'input',
-        name: 'Usage',
+        name: 'usage',
         message: 'What is the usage information for this project?'
     },
     {
         type: 'input',
-        name: 'Credits',
+        name: 'credits',
         message: 'Who contributed to this project?',
     },
     {
         type: 'checkbox',
-        name: 'License',
+        name: 'license',
         message: 'Selected any licenses that your application is covered under.',
         choices: ['BSD', 'MIT', 'GPL']
     },
     {
         type: 'input',
-        name: 'Questions',
-        message: 'Please provide your github username and a link to your github profile'
-    },
-    {
-        type: 'input',
-        name: 'Questions2',
+        name: 'email',
         message: 'Please provide your email address.'
     }
 ];
-inquirer.prompt(questions).then(
 
-(function(data) {
-// TODO: Create a function to write README file
-
-
-fs.writeFile('README.md', JSON.stringify(data, null, '\t'), function(err) {
-if (err) {
-  return console.log(err);
+const createReadme = questions => {
+    inquirer.prompt(questions).then(answers => {
+        questionAnswers = generateMarkdown(answers);
+        writeToFile("README.md", questionAnswers);
+        });
 }
 
-console.log('Success!');
-});
+const writeToFile = (fileName, data) => {
+    fs.writeFile(fileName, data, function(err) {
+        if (err) {
+            return console.log('ERROR:');
+        }
+    
+        console.log('Sucess!');
+    });
+};
 
-// TODO: Create a function to initialize app
 const init = () => {
-    questions;
+    createReadme(questions);
 }
 
-
-// Function call to initialize app
 init();
-
-}));
 

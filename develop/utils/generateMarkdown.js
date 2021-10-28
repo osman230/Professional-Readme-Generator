@@ -1,53 +1,73 @@
-// TODO: Create a function that returns a license badge based on which license is passed in
-// If there is no license, return an empty string
-function renderLicenseBadge(license) {}
 
-// TODO: Create a function that returns the license link
-// If there is no license, return an empty string
-function renderLicenseLink(license) {}
+function renderLicenseBadge(license) {
+  let enteredLicense = '';
+  switch(license) {
+    case 'BSD':
+    enteredLicense = '![License: BSD](https://img.shields.io/badge/License-BSD-yellow.svg)';
+    break;
+    case 'MIT':
+    enteredLicense = '![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)';
+    break;
+    case 'GPL':
+    enteredLicense = '![License: GPL](https://img.shields.io/badge/License-GPL-yellow.svg)';
+    break;
+    default:
+    enteredLicense = "N/A"
+  }
+  return enteredLicense;
+};
 
-// TODO: Create a function that returns the license section of README
-// If there is no license, return an empty string
-function renderLicenseSection(license) {}
 
-// TODO: Create a function to generate markdown for README
+function renderLicenseLink(license) {
+  if (license != "") {
+    return '\n* [license](#license)\n';
+  } return ""; 
+};
+
+function renderLicenseSection(license) {
+  let licenseBadge;
+  if (license !== 'N/A') {
+    return (
+      licenseBadge
+    )
+  }
+  return ''
+}
+
 function generateMarkdown(data) {
-  return `# ${data.title}
-  
-  
+  const {title, description, installation, usage, credits, license, email} = data;
+  const licenseImage = renderLicenseBadge(license);
+  const licenseInfo = renderLicenseSection(license);
+  const generateReadme = `# ${title}
 
-  ${renderLicenseBadge}
+${licenseImage}
 
-  ## Title
+## Description
 
-  ${project-title}
+${description}
 
-  ## Description
+## Installation
 
-  ${Description}
+${installation}
 
-  ## Installation
+## Usage
 
-  ${Iinstallation}
+${usage}
 
-  ## Usage
+## Credits
 
-  ${Usage}
+${credits}
 
-  ## license
+${licenseInfo}
 
-  ${renderLicenseSection}
 
-  ## Contributing
+## Email
 
-  ${Credits}
+${email}
 
-  ## Questions
+`
 
-  ${questions, questions2}
-`;
-
-return ;
+return generateReadme;
 }
 
 module.exports = generateMarkdown;
