@@ -42,6 +42,14 @@ function generateMarkdown(data) {
 
 ${licenseImage}
 
+## Table of Contents
+* [Description](#description)
+* [Installation](#installation)
+* [Usage](#usage)
+* [License](#license)
+* [Credits](#credits)
+
+
 ## Description
 
 ${description}
@@ -59,7 +67,6 @@ ${usage}
 ${credits}
 
 ${licenseInfo}
-
 
 ## Email
 
